@@ -1,0 +1,53 @@
+<div class="login-container">
+  <h2 class="login-title">Proyectos Disponibles</h2>
+  <p class="subtitulo">Encuentra tu próximo desafío freelance.</p>
+
+  <div *ngIf="proyectos.length === 0" class="alerta">
+    No hay proyectos abiertos en este momento.
+  </div>
+
+  <div class="lista-proyectos">
+    <div *ngFor="let p of proyectos" class="proyecto-card">
+      
+      <div class="card-header">
+        <h3 class="proyecto-titulo">{{ p.titulo }}</h3>
+        <span class="categoria-badge">Categoría ID: {{ p.idCategoria }}</span>
+      </div>
+      
+      <p class="proyecto-desc">{{ p.descripcion }}</p>
+      
+      <div class="proyecto-footer">
+        <span class="proyecto-presupuesto">Presupuesto Máximo: Q{{ p.presupuestoMaximo }}</span>
+        <span class="proyecto-limite">Límite: {{ p.fechaLimite }}</span>
+      </div>
+
+      <button *ngIf="proyectoSeleccionado?.idProyecto !== p.idProyecto" 
+              class="btn btn-primary btn-postular" 
+              (click)="abrirFormulario(p)">
+        ¡Postularme a este proyecto!
+      </button>
+
+      <div *ngIf="proyectoSeleccionado?.idProyecto === p.idProyecto" class="formulario-postulacion">
+        <h4>Detalles de tu Propuesta</h4>
+        
+        <div class="form-group">
+          <input type="number" [(ngModel)]="nuevaPropuesta.monto" placeholder="¿Cuánto cobrarás en total? (Q)" class="form-control">
+        </div>
+        
+        <div class="form-group">
+          <input type="number" [(ngModel)]="nuevaPropuesta.dias" placeholder="¿En cuántos días lo terminas?" class="form-control">
+        </div>
+        
+        <div class="form-group">
+          <textarea [(ngModel)]="nuevaPropuesta.mensaje" placeholder="Escribe tu carta de presentación convenciéndolo..." class="form-control" rows="3"></textarea>
+        </div>
+        
+        <div class="botones-accion">
+          <button class="btn btn-success" (click)="enviarPropuesta()">Enviar Oferta</button>
+          <button class="btn btn-danger" (click)="cancelarPostulacion()">Cancelar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="login-container">
+  <h2 class="login-title">Mis Proyectos Publicados</h2>
+  
+  <div *ngIf="misProyectos.length === 0" class="alerta">
+    Aún no has publicado ningún proyecto.
+  </div>
+
+  <div class="lista-proyectos">
+    <div *ngFor="let p of misProyectos" class="proyecto-card">
+      
+      <div class="card-header">
+        <h3 class="proyecto-titulo">{{ p.titulo }}</h3>
+        <span [class]="'estado-badge ' + p.estado.toLowerCase()">{{ p.estado }}</span>
+      </div>
+      
+      <p class="proyecto-desc">{{ p.descripcion }}</p>
+      
+      <div class="proyecto-footer">
+        <span class="proyecto-presupuesto">Presupuesto: Q{{ p.presupuestoMaximo }}</span>
+        <span>Límite: {{ p.fechaLimite }}</span>
+      </div>
+
+      <!-- BOTÓN PARA VER POSTULANTES -->
+      <button class="btn btn-ver-postulantes" 
+              *ngIf="p.estado === 'ABIERTO' && proyectoViendoPropuestas?.idProyecto !== p.idProyecto"
+              (click)="verPropuestas(p)">
+        Ver Postulantes
+      </button>
+
+      <!-- SECCIÓN DE PROPUESTAS -->
+      <div *ngIf="proyectoViendoPropuestas?.idProyecto === p.idProyecto" class="panel-propuestas">
+        
+        <div class="panel-propuestas-header">
+          <h4>Propuestas Recibidas</h4>
+          <button class="btn btn-cerrar" (click)="cerrarPropuestas()">Cerrar</button>
+        </div>
+
+        <div *ngIf="propuestas.length === 0" class="alerta-vacia">
+          Aún no hay freelancers postulados para este proyecto.
+        </div>
+
+        <!-- TARJETAS DE LOS FREELANCERS POSTULADOS -->
+        <div *ngFor="let prop of propuestas" class="tarjeta-propuesta">
+          
+          <div class="propuesta-freelancer-info">
+            <strong>{{ prop.nombreFreelancer }}</strong>
+            <span class="estrellas">{{ prop.calificacionFreelancer }} / 5.0</span>
+          </div>
+          
+          <p class="carta-presentacion">"{{ prop.cartaPresentacion }}"</p>
+          
+          <div class="propuesta-detalles">
+            <span class="monto-ofertado">Cobra: Q{{ prop.montoOfertado }}</span>
+            <span>Plazo: {{ prop.plazoDias }} días</span>
+          </div>
+
+          <button class="btn btn-aceptar" (click)="aceptarOferta(prop)">Aceptar Oferta y Contratar</button>
+
+        </div>
+      </div>
+      
+      <!-- ALERTA DE ENTREGA -->
+      <div *ngIf="p.estado === 'ENTREGA_PENDIENTE'" class="contenedor-alerta-entrega">
+        <div class="alerta-entrega">
+          ¡El freelancer ha enviado su trabajo!
+        </div>
+        
+        <button class="btn-registro btn-revisar" *ngIf="proyectoEnRevision?.idProyecto !== p.idProyecto" (click)="abrirRevision(p)"> 
+          Revisar Entrega 
+        </button>
+      </div>
+
+      <!-- PANEL DE REVISIÓN -->
+      <div *ngIf="proyectoEnRevision?.idProyecto === p.idProyecto && entregaActual" class="panel-revision">
+        <h4 class="revision-titulo">Revisión del Trabajo</h4>
+        
+        <div class="info-entrega">
+          <p><strong>Mensaje del Freelancer:</strong><br> {{ entregaActual.descripcion }}</p>
+          <p><strong>Archivos adjuntos:</strong><br> 
+            <a [href]="entregaActual.archivosUrl" target="_blank" class="link-archivos">{{ entregaActual.archivosUrl }}</a>
+          </p>
+        </div>
+
+        <div class="acciones-evaluacion">
+          <!-- Botón de Aceptar -->
+          <button class="btn-registro btn-aceptar" (click)="aceptarTrabajo()">Aceptar y Finalizar </button>
+
+          <!-- Zona de Rechazo -->
+          <div class="zona-rechazo">
+            <textarea class="form-control" rows="2" placeholder="Si vas a rechazar, escribe el motivo aquí..." 
+                      [(ngModel)]="motivoRechazo"></textarea>
+            <button class="btn-registro btn-rechazar" (click)="rechazarTrabajo()">Rechazar Trabajo</button>
+          </div>
+          
+          <button class="btn-registro btn-cancelar" (click)="cerrarRevision()">
+            Ocultar Panel
+          </button>
+        </div>
+      </div>
+
+      <!-- PANEL DE CALIFICACIÓN -->
+      <div *ngIf="proyectoParaCalificar === p.id_proyecto || proyectoParaCalificar === p.idProyecto" 
+          class="panel-revision panel-calificacion">
+        
+        <h4 class="revision-titulo titulo-calificacion">Califica el trabajo del Freelancer!</h4>
+
+        <div class="form-group espaciado-top">
+          <label>¿Cuántas estrellas le das? (1 a 5):</label>
+          <input type="number" class="form-control input-estrellas" min="1" max="5" 
+                [(ngModel)]="nuevaCalificacion.estrellas">
+        </div>
+
+        <div class="form-group">
+          <label>Deja un comentario público sobre su trabajo:</label>
+          <textarea class="form-control" rows="2" placeholder="Ej. Excelente trabajo, entrega a tiempo y muy profesional..." [(ngModel)]="nuevaCalificacion.comentario"></textarea>
+        </div>
+
+        <button class="btn-registro btn-calificar" (click)="guardarCalificacion()"> Publicar Calificación </button>
+      </div>
+
+    </div>
+  </div>
+</div>
