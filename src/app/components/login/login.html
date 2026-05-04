@@ -1,0 +1,39 @@
+<div class="login-container">
+  
+  <h2 class="login-title">Bienvenido a ConnectWork</h2>
+  
+  <div *ngIf="errorMessage" class="error-alert">
+    {{ errorMessage }}
+  </div>
+
+  <form (ngSubmit)="onLogin()">
+    <div class="form-group">
+      <label>Usuario:</label>
+      <input 
+        type="text" 
+        name="username" 
+        [(ngModel)]="username" 
+        class="form-control"
+        placeholder="Ej. admin_connect">
+    </div>
+
+    <div class="form-group">
+      <label>Contraseña:</label>
+      <input 
+        type="password" 
+        name="password" 
+        [(ngModel)]="password" 
+        class="form-control"
+        placeholder="Tu contraseña">
+    </div>
+
+    <button type="submit" class="btn-primary">
+      Iniciar Sesión
+    </button>
+  </form>
+
+    <p class="enlace-registro-container">
+      ¿No tienes cuenta? <a routerLink="/registro" class="enlace-registro">Regístrate aquí</a>
+    </p>
+
+</div>
