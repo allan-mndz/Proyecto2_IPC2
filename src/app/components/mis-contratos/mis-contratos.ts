@@ -15,6 +15,8 @@ export class MisContratos implements OnInit {
   contratoViendoEntrega: any = null;
   nuevaEntrega = { descripcion: '', archivosUrl: '' };
 
+  entregaAnterior: any = null;
+
   constructor(private proyectoService: Proyecto, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
@@ -38,6 +40,23 @@ export class MisContratos implements OnInit {
   abrirFormularioEntrega(contrato: any): void {
     this.contratoViendoEntrega = contrato;
     this.nuevaEntrega = { descripcion: '', archivosUrl: '' };
+    this.entregaAnterior = null; // Reseteamos el estado cada vez que abrimos
+
+    // Aseguramos que el id exista y se mapee correctamente
+    const idContrato = contrato.id_contrato || contrato.idContrato;
+    
+    // Consultamos la última entrega para ver si el cliente la rechazó
+    if (idContrato) {
+      this.proyectoService.getUltimaEntrega(idContrato).subscribe({
+        next: (entrega) => {
+          // Si hay una entrega y su estado es RECHAZADA, la guardamos para mostrar la alerta
+          if (entrega && entrega.estado === 'RECHAZADA') {
+            this.entregaAnterior = entrega;
+          }
+        },
+        error: (err) => console.error("Error al obtener el historial de la entrega", err)
+      });
+    }
   }
 
   cancelarEntrega(): void {
@@ -60,7 +79,7 @@ export class MisContratos implements OnInit {
     this.proyectoService.subirEntrega(paquete).subscribe({
       next: (respuesta) => {
         if (respuesta.status === 'success') {
-          alert('¡Trabajo enviado exitosamente! El cliente lo revisará pronto.');
+          alert('Trabajo enviado exitosamente. El cliente lo revisará pronto.');
           this.contratoViendoEntrega = null;
           this.cargarContratos();
         } else {
@@ -70,4 +89,17 @@ export class MisContratos implements OnInit {
       error: (err) => alert('Error de conexión con el servidor.')
     });
   } 
+
+  retirarMiPropuesta(idPropuesta: number): void {
+    if(confirm('¿Estás seguro de que deseas retirar esta propuesta? El cliente ya no podrá verla.')) {
+      this.proyectoService.retirarPropuesta(idPropuesta).subscribe({
+        next: (res: any) => {
+          if(res.status === 'success') {
+            alert('Propuesta retirada con éxito.');
+            this.cargarContratos(); 
+          }
+        }
+      });
+    }
+  }
 }

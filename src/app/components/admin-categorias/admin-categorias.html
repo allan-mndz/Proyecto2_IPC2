@@ -1,0 +1,63 @@
+<div class="admin-container">
+  <h2>Gestión de Categorías</h2>
+  <p>Crea, edita o desactiva las categorías de servicios de la plataforma.</p>
+
+  <div class="form-crear">
+    <h3>{{ categoriaEnEdicion ? 'Editar Categoría' : 'Nueva Categoría' }}</h3>
+    
+    <div class="input-group">
+      <input type="text" class="form-control input-nombre" 
+             *ngIf="!categoriaEnEdicion" 
+             [(ngModel)]="nuevaCategoriaNombre" 
+             placeholder="Nombre (Ej. Desarrollo Web)">
+             
+      <input type="text" class="form-control input-desc" 
+             *ngIf="!categoriaEnEdicion" 
+             [(ngModel)]="nuevaCategoriaDesc" 
+             placeholder="Descripción de la categoría">
+             
+      <input type="text" class="form-control input-nombre" 
+             *ngIf="categoriaEnEdicion" 
+             [(ngModel)]="categoriaEnEdicion.nombre">
+             
+      <input type="text" class="form-control input-desc" 
+             *ngIf="categoriaEnEdicion" 
+             [(ngModel)]="categoriaEnEdicion.descripcion">
+
+      <button class="btn-action btn-verde" *ngIf="!categoriaEnEdicion" (click)="crearCategoria()">Guardar</button>
+      <button class="btn-action btn-verde" *ngIf="categoriaEnEdicion" (click)="guardarEdicion()">Actualizar</button>
+      <button class="btn-action btn-rojo" *ngIf="categoriaEnEdicion" (click)="categoriaEnEdicion = null">Cancelar</button>
+    </div>
+  </div>
+
+  <table class="tabla-admin">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cat of categorias">
+        <td>{{ cat.idCategoria }}</td>
+        <td><strong>{{ cat.nombre }}</strong></td>
+        <td>{{ cat.descripcion }}</td>
+        <td>
+          <span class="badge-estado" [ngClass]="{'activo': cat.estado == 1, 'inactivo': cat.estado == 0}">
+            {{ cat.estado == 1 ? 'ACTIVA' : 'INACTIVA' }}
+          </span>
+        </td>
+        <td>
+          <button class="btn-action btn-editar" (click)="iniciarEdicion(cat)" [disabled]="cat.estado == 0">Editar</button>
+          
+          <button class="btn-action" [ngClass]="{'btn-rojo': cat.estado == 1, 'btn-verde': cat.estado == 0}" (click)="alternarEstado(cat)">
+            {{ cat.estado == 1 ? 'Desactivar' : 'Activar' }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -5,20 +5,24 @@
   
   <div class="navbar-links">
     
-    <ng-container *ngIf="rolActual === 'ADMIN'">
-      <a href="#">Usuarios del Sistema</a>
-      <a href="#">Reportes Generales</a>
+   <ng-container *ngIf="rolActual === 'ADMIN' || rolActual === 'ADMINISTRADOR'">
+      <a routerLink="/admin-usuarios">Usuarios del Sistema</a>
+      <a routerLink="/admin-categorias">Categorías</a>
+      <a routerLink="/admin-habilidades">Habilidades</a>  <a routerLink="/admin-comision">Comisiones</a>
+      <a routerLink="/admin-reportes">Reportes Generales</a>
     </ng-container>
 
     <ng-container *ngIf="rolActual === 'CLIENTE'">
       <a routerLink="/publicar-proyecto">Publicar Proyecto</a>
       <a routerLink="/mis-publicaciones">Mis Contratos</a>
+      <a routerLink="/billetera">Mi Billetera</a>
+      <a routerLink="/reportes-cliente">Mis Reportes</a>
     </ng-container>
 
     <ng-container *ngIf="rolActual === 'FREELANCER'">
       <a routerLink="/mis-contratos">Mis Contratos</a>
       <a routerLink="/buscar-trabajos">Buscar Trabajos</a>
-      <a href="#">Mi Perfil</a>
+      <a routerLink="/billetera">Mi Billetera</a> 
     </ng-container>
 
   </div>

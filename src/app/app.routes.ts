@@ -7,6 +7,14 @@ import { PublicarProyecto } from './components/publicar-proyecto/publicar-proyec
 import { BuscarTrabajos } from './components/buscar-trabajos/buscar-trabajos'; 
 import { MisPublicaciones } from './components/mis-publicaciones/mis-publicaciones';
 import { MisContratos } from './components/mis-contratos/mis-contratos';
+import { Billetera } from './components/billetera/billetera';   
+import { ReportesCliente } from './components/reportes-cliente/reportes-cliente';
+import { AdminUsuarios } from './components/admin-usuarios/admin-usuarios';
+import { AdminCategorias } from './components/admin-categorias/admin-categorias';
+import { AdminHabilidadesComponent } from './components/admin-habilidades/admin-habilidades';
+import { AdminComisionComponent } from './components/admin-comision/admin-comision';
+import { AdminReportesComponent } from './components/admin-reportes/admin-reportes';
+import { CompletarPerfilComponent } from './components/completar-perfil/completar-perfil';
 
 export const routes: Routes = [
 
@@ -25,6 +33,22 @@ export const routes: Routes = [
     { path: 'mis-publicaciones', component: MisPublicaciones },
 
     { path: 'mis-contratos', component: MisContratos},
+
+    { path : 'billetera', component: Billetera},
+
+    { path: 'reportes-cliente', component: ReportesCliente },
+
+    { path: 'admin-usuarios', component: AdminUsuarios },
+
+    { path: 'admin-categorias', component: AdminCategorias },
+
+    { path: 'admin-habilidades', component: AdminHabilidadesComponent },
+
+    { path: 'admin-comision', component: AdminComisionComponent },
+
+    { path: 'admin-reportes', component: AdminReportesComponent },
+
+    { path: 'completar-perfil', component: CompletarPerfilComponent }, 
 
     {path: '**', redirectTo: '/login'},
     

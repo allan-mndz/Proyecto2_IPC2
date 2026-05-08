@@ -1,0 +1,35 @@
+<div class="admin-container">
+  <h2>Gestión de Usuarios del Sistema</h2>
+  <p>Controla el acceso de clientes y freelancers a la plataforma.</p>
+
+  <table class="tabla-admin">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre Completo</th>
+        <th>Nombre de Usuario</th>
+        <th>Rol</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of listaUsuarios">
+        <td>{{ u.idUsuario }}</td>
+        <td>{{ u.nombreCompleto }}</td>
+        <td>@{{ u.username }}</td>
+        <td><span class="badge-rol">{{ u.tipoUsuario }}</span></td>
+        <td>
+          <span class="badge-estado" [ngClass]="{'activo': esActivo(u.estado), 'inactivo': !esActivo(u.estado)}">
+            {{ esActivo(u.estado) ? 'ACTIVO' : 'INACTIVO' }}
+          </span>
+        </td>
+        <td>
+          <button class="btn-toggle" [ngClass]="{'btn-rojo': esActivo(u.estado), 'btn-verde': !esActivo(u.estado)}" (click)="alternarEstado(u)">
+            {{ esActivo(u.estado) ? 'Desactivar Cuenta' : 'Activar Cuenta' }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

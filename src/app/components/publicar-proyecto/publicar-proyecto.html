@@ -18,9 +18,8 @@
     <div class="form-group">
       <label>Categoría:</label>
       <select [(ngModel)]="nuevoProyecto.idCategoria" name="categoria" class="form-control" required>
-        <option [value]="1">Desarrollo Web</option>
-        <option [value]="2">Diseño Gráfico</option>
-        <option [value]="3">Marketing Digital</option>
+        <option [value]="0" disabled selected>Selecciona una Categoría</option>
+        <option *ngFor="let c of categoriasActivas" [value]="c.idCategoria">{{ c.nombre }}</option>
       </select>
     </div>
 

@@ -1,0 +1,46 @@
+<div class="perfil-container">
+  <div class="perfil-header">
+    <h2>Completa tu Perfil</h2>
+    <p>Antes de comenzar a usar la plataforma, necesitamos un par de datos adicionales.</p>
+  </div>
+
+  <div *ngIf="rol === 'CLIENTE'" class="form-section">
+    <div class="form-group">
+      <label>Descripción de tu Empresa/Perfil:</label>
+      <textarea class="form-control" [(ngModel)]="descripcionEmpresa" rows="3" placeholder="Cuéntanos un poco sobre lo que haces..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Sector o Industria:</label>
+      <input type="text" class="form-control" [(ngModel)]="sector" placeholder="Ej. Tecnología, Comercio, Educación...">
+    </div>
+
+    <div class="form-group">
+      <label>Sitio Web (Opcional):</label>
+      <input type="text" class="form-control" [(ngModel)]="sitioWeb" placeholder="https://www.tuempresa.com">
+    </div>
+  </div>
+
+  <div *ngIf="rol === 'FREELANCER'" class="form-section">
+    <div class="form-group">
+      <label>Biografía Profesional:</label>
+      <textarea class="form-control" [(ngModel)]="biografia" rows="3" placeholder="Describe tu experiencia y habilidades principales..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Nivel de Experiencia:</label>
+      <select class="form-control select-nivel" [(ngModel)]="nivelExperiencia">
+        <option value="JUNIOR">Junior (0-2 años)</option>
+        <option value="SEMI-SENIOR">Semi-Senior (3-5 años)</option>
+        <option value="SENIOR">Senior (+5 años)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Tarifa por Hora (Q):</label>
+      <input type="number" class="form-control" [(ngModel)]="tarifaHora" placeholder="Ej. 150.00" min="0">
+    </div>
+  </div>
+
+  <button class="btn-action btn-verde btn-block" (click)="guardarDatos()">Guardar y Continuar</button>
+</div>
