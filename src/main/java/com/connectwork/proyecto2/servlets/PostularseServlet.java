@@ -34,4 +34,18 @@ public class PostularseServlet extends HttpServlet {
             resp.getWriter().print("{\"status\":\"error\", \"message\":\"" + e.getMessage() + "\"}");
         }
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setContentType("application/json");
+        int idPropuesta = Integer.parseInt(req.getParameter("idPropuesta"));
+
+        boolean exito = propuestaDAO.retirarPropuesta(idPropuesta);
+
+        if (exito) {
+            resp.getWriter().print("{\"status\":\"success\"}");
+        } else {
+            resp.getWriter().print("{\"status\":\"error\"}");
+        }
+    }
 }

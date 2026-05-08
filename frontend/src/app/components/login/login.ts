@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Auth } from '../../services/auth';
@@ -16,29 +16,38 @@ export class Login {
   password = '';
   errorMessage = '';
 
-  constructor(private authService: Auth, private router: Router) {}
+  constructor(private authService: Auth, private router: Router, private cdr: ChangeDetectorRef) {}
 
   onLogin(): void {
-    this.errorMessage = ''; // Limpiar mensaje de error antes de intentar el login
+    this.errorMessage = ''; 
 
     if (!this.username || !this.password) {
       this.errorMessage = 'Por favor, ingrese su nombre de usuario y contraseña.';
+      this.cdr.detectChanges(); 
       return;
     }
 
     this.authService.login(this.username, this.password).subscribe({
-      next: (response) => {   
+      next: (response: any) => { 
         console.log('Login exitoso:', response);
         alert(`¡Bienvenido ${response.usuario.nombreCompleto}!`);
 
         localStorage.setItem('token', response.token);
         localStorage.setItem('usuario', JSON.stringify(response.usuario));
+        
+        
+        localStorage.setItem('perfilCompletado', String(response.perfilCompletado));
 
-        this.router.navigate(['/dashboard']);
+        if (response.perfilCompletado) {
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.router.navigate(['/completar-perfil']);
+        }
       },
       error: (err) => {
         console.error('Error durante el login:', err);
         this.errorMessage = 'Ocurrió un error durante el login. Por favor, intente nuevamente más tarde.';
+        this.cdr.detectChanges(); 
       },
     }); 
   }

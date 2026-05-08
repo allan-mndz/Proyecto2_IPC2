@@ -1,0 +1,44 @@
+<div class="admin-container">
+  <h2>Gestión de Comisiones</h2>
+  <p>Configura el porcentaje que la plataforma cobra por cada contrato completado.</p>
+
+  <div class="panel-comision">
+    <h3 class="titulo-comision">Comisión Actual de la Plataforma</h3>
+    <h1 class="monto-comision" *ngIf="comisionActual">
+      {{ comisionActual.porcentaje }}%
+    </h1>
+    <p class="fecha-comision">Vigente desde: {{ comisionActual?.fechaInicio | date:'medium' }}</p>
+    
+    <div class="controles-comision">
+      <label>Nuevo Porcentaje (%):</label>
+      <input type="number" class="form-control input-comision" [(ngModel)]="nuevoPorcentaje" placeholder="Ej. 12.5" min="0" max="100">
+      <button class="btn-action btn-verde" (click)="actualizarComision()">Actualizar Comisión</button>
+    </div>
+  </div>
+
+  <h3 class="titulo-historial">Historial de Modificaciones</h3>
+  <table class="tabla-admin">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Porcentaje</th>
+        <th>Fecha de Inicio</th>
+        <th>Fecha de Fin</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of historialComisiones">
+        <td>{{ c.idComision }}</td>
+        <td><strong>{{ c.porcentaje }}%</strong></td>
+        <td>{{ c.fechaInicio | date:'medium' }}</td>
+        <td>{{ c.fechaFin ? (c.fechaFin | date:'medium') : 'Vigente Actualmente' }}</td>
+        <td>
+          <span class="badge-estado" [ngClass]="{'activo': !c.fechaFin, 'inactivo': c.fechaFin}">
+            {{ c.fechaFin ? 'HISTÓRICO' : 'ACTIVA' }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

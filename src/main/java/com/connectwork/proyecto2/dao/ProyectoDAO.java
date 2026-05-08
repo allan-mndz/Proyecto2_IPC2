@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ProyectoDAO {
 
-    public boolean publicarProyecto(Proyecto nuevoProyecto){
+    public boolean publicarProyecto(Proyecto nuevoProyecto) {
         String sql = "INSERT INTO Proyecto (id_cliente, id_categoria, titulo, descripcion, presupuesto_maximo, fecha_limite, estado) " +
                 "VALUES ((SELECT id_cliente FROM Cliente WHERE id_usuario = ? LIMIT 1), ?, ?, ?, ?, ?, 'ABIERTO')";
 
@@ -21,7 +21,7 @@ public class ProyectoDAO {
 
             stmt.setInt(1, nuevoProyecto.getIdCliente());
             stmt.setInt(2, nuevoProyecto.getIdCategoria());
-            stmt.setString(3, nuevoProyecto.getTitulo());
+            stmt.setString(3, nuevoProyecto.getTitulo()); // Si esto es null, en la DB quedará vacío
             stmt.setString(4, nuevoProyecto.getDescripcion());
             stmt.setDouble(5, nuevoProyecto.getPresupuestoMaximo());
             stmt.setString(6, nuevoProyecto.getFechaLimite());
@@ -30,9 +30,9 @@ public class ProyectoDAO {
             return filasAfectadas > 0;
 
         } catch (Exception e) {
+            System.out.println("ERROR al publicar proyecto: " + e.getMessage());
             e.printStackTrace();
             return false;
-
         }
     }
 
@@ -76,16 +76,21 @@ public class ProyectoDAO {
 
             while (rs.next()) {
                 Proyecto p = new Proyecto();
+                // Llenado de todas las propiedades del objeto
                 p.setIdProyecto(rs.getInt("id_proyecto"));
+                p.setIdCliente(rs.getInt("id_cliente"));
+                p.setIdCategoria(rs.getInt("id_categoria"));
                 p.setTitulo(rs.getString("titulo"));
                 p.setDescripcion(rs.getString("descripcion"));
                 p.setPresupuestoMaximo(rs.getDouble("presupuesto_maximo"));
                 p.setFechaLimite(rs.getString("fecha_limite"));
                 p.setEstado(rs.getString("estado"));
+
                 lista.add(p);
             }
         } catch (SQLException e) {
-            System.out.println("Error en DAO: " + e.getMessage());
+            System.out.println("Error en DAO al obtener proyectos por cliente: " + e.getMessage());
+            e.printStackTrace();
         }
         return lista;
     }

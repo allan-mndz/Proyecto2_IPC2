@@ -2,7 +2,7 @@ package com.connectwork.proyecto2.servlets;
 
 import com.connectwork.proyecto2.dao.EntregaDAO;
 import com.google.gson.Gson;
-import io.jsonwebtoken.io.IOException;
+import java.io.IOException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +13,7 @@ public class EvaluarEntregaServlet extends HttpServlet {
     private EntregaDAO entregaDAO = new EntregaDAO();
     private Gson gson = new Gson();
 
-    private class DatosEvaluacion {
+    private static class DatosEvaluacion {
         int idEntrega;
         int idProyecto;
         int idContrato;
@@ -28,6 +28,7 @@ public class EvaluarEntregaServlet extends HttpServlet {
 
         try {
             DatosEvaluacion datos = gson.fromJson(req.getReader(), DatosEvaluacion.class);
+
             boolean exito = entregaDAO.evaluarEntrega(datos.idEntrega, datos.idProyecto, datos.idContrato, datos.esAceptada, datos.motivoRechazo);
 
             if (exito) {

@@ -88,8 +88,8 @@ public class EntregaDAO {
                 "JOIN Propuesta p ON c.id_propuesta = p.id_propuesta " +
                 "WHERE c.id_contrato = ?";
 
-        String sqlPagarFreelancer = "UPDATE Freelancer SET saldo = saldo + ? WHERE id_freelancer = ?";
-        String sqlPagarPlataforma = "UPDATE Plataforma SET saldo_global = saldo_global + ? WHERE id_plataforma = 1";
+        String sqlPagarFreelancer = "UPDATE Freelancer SET saldo = IFNULL(saldo, 0) + ? WHERE id_freelancer = ?";
+        String sqlPagarPlataforma = "UPDATE Plataforma SET saldo_global = IFNULL(saldo_global, 0) + ? WHERE id_plataforma = 1";
 
 
         try (Connection conn = DBConnection.getConnection()) {
@@ -162,5 +162,32 @@ public class EntregaDAO {
         } catch (SQLException e) {
             return false;
         }
+    }
+
+    public Entrega obtenerUltimaEntrega(int idContrato) {
+        Entrega entrega = null;
+        // Ordenamos por ID descendente y limitamos a 1 para traer siempre la más reciente
+        String sql = "SELECT * FROM Entrega WHERE id_contrato = ? ORDER BY id_entrega DESC LIMIT 1";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idContrato);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    entrega = new Entrega();
+                    entrega.setIdEntrega(rs.getInt("id_entrega"));
+                    entrega.setIdContrato(rs.getInt("id_contrato"));
+                    entrega.setDescripcion(rs.getString("descripcion"));
+                    entrega.setArchivosUrl(rs.getString("archivos_url"));
+                    entrega.setEstado(rs.getString("estado"));
+                    entrega.setMotivoRechazo(rs.getString("motivo_rechazo"));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener última entrega: " + e.getMessage());
+        }
+        return entrega;
     }
 }

@@ -66,4 +66,16 @@ public class PropuestaDAO {
         }
         return lista;
     }
+
+    public boolean retirarPropuesta(int idPropuesta) {
+        String sql = "DELETE FROM Propuesta WHERE id_propuesta = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idPropuesta);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al retirar propuesta: " + e.getMessage());
+            return false;
+        }
+    }
 }

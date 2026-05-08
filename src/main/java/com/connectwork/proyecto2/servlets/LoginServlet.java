@@ -39,13 +39,16 @@ public class LoginServlet extends HttpServlet {
 
             Usuario usuario = usuarioDAO.validarLogin(username, password);
 
+
             PrintWriter out = resp.getWriter();
             JsonObject jsonResponse = new JsonObject();
 
             if (usuario != null) {
+                boolean completado = usuarioDAO.tienePerfilCompleto(usuario.getIdUsuario(), usuario.getTipoUsuario());
                 String token = JWTUtil.generateToken(usuario);
                 jsonResponse.addProperty("status", "success");
                 jsonResponse.addProperty("token", token);
+                jsonResponse.addProperty("perfilCompletado", completado);
                 jsonResponse.add("usuario", gson.toJsonTree(usuario));
                 resp.setStatus(HttpServletResponse.SC_OK);
             } else {

@@ -15,12 +15,14 @@ public class ContratoDAO {
     public boolean generarContrato(int idPropuesta, int idProyecto, double monto){
         String sqlInsertarContrato = "INSERT INTO Contrato (id_propuesta, monto_bloqueado, estado) VALUES (?, ?, 'ACTIVO')";
         String sqlActualizarProyecto = "UPDATE Proyecto SET estado = 'EN_PROGRESO' WHERE id_proyecto = ?";
+        String sqlRestarSaldo = "UPDATE Cliente SET saldo = saldo - ? WHERE id_cliente = (SELECT id_cliente FROM Proyecto WHERE id_proyecto = ?)";
 
         try(Connection conn = DBConnection.getConnection()) {
             conn.setAutoCommit(false);
 
             try(PreparedStatement psContrato = conn.prepareStatement(sqlInsertarContrato);
-                PreparedStatement psProyecto = conn.prepareStatement(sqlActualizarProyecto)) {
+                PreparedStatement psProyecto = conn.prepareStatement(sqlActualizarProyecto);
+                PreparedStatement psSaldo = conn.prepareStatement(sqlRestarSaldo)) {
 
                 // Creamos el contrato
                 psContrato.setInt(1, idPropuesta);
@@ -30,6 +32,11 @@ public class ContratoDAO {
                 // Cambiamos el estado del proyecto
                 psProyecto.setInt(1, idProyecto);
                 psProyecto.executeUpdate();
+
+                // RESTAMOS EL SALDO
+                psSaldo.setDouble(1, monto);
+                psSaldo.setInt(2, idProyecto);
+                psSaldo.executeUpdate();
 
                 // guardamos los cambios
                 conn.commit();

@@ -1,0 +1,75 @@
+.admin-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  padding: 30px;
+  border: 1px solid black;
+}
+
+.admin-container h2 {
+  color: black;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.admin-container p {
+  color: gray;
+  margin-bottom: 25px;
+}
+
+.tabla-admin {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.tabla-admin th, .tabla-admin td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid gray;
+}
+
+.tabla-admin th {
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+}
+
+.badge-rol {
+  color: black;
+  font-size: 16px;
+}
+
+.badge-estado {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.activo {
+  color: green; 
+  background-color: transparent; 
+  border: none; 
+}
+
+.inactivo {
+  color: red; 
+  background-color: transparent;
+  border: none;
+}
+
+.btn-toggle {
+  padding: 8px 15px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.btn-rojo {
+  background-color: red;
+}
+
+.btn-verde {
+  background-color: green;
+}
