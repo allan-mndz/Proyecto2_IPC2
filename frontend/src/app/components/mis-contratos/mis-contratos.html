@@ -1,0 +1,58 @@
+<div class="registro-container container-ancho">
+  <h2>Mis Trabajos Activos</h2>
+  
+  <div *ngIf="misContratosActivos.length === 0" class="alerta alerta-vacia">
+    Aún no tienes contratos activos.
+  </div>
+
+  <div class="lista-proyectos">
+    <div *ngFor="let c of misContratosActivos" class="proyecto-card">
+      
+      <div class="card-header">
+        <h3 class="proyecto-titulo">{{ c.tituloProyecto }}</h3>
+        <span class="estado-badge en-progreso">EN PROGRESO</span>
+      </div>
+      
+      <p class="proyecto-desc">{{ c.descripcionProyecto }}</p>
+      
+      <div class="proyecto-footer">
+        <span class="proyecto-presupuesto">Pago bloqueado: Q{{ c.montoBloqueado }}</span>
+        <span class="fecha-limite">Entregar antes del: {{ c.fechaLimite }}</span>
+      </div>
+
+      <button class="btn-registro btn-margin-top" 
+              *ngIf="contratoViendoEntrega?.idContrato !== c.idContrato"    
+              (click)="abrirFormularioEntrega(c)">
+        Subir Entrega 
+      </button>
+
+      <div *ngIf="contratoViendoEntrega?.idContrato === c.idContrato" class="formulario-entrega">
+        <h4 class="formulario-titulo">Detalles de tu entrega</h4>
+        
+        <div *ngIf="entregaAnterior" class="alerta-rechazo">
+          <p class="alerta-titulo">Tu entrega anterior fue rechazada</p>
+          <p><strong>Motivo del cliente:</strong> {{ entregaAnterior.motivoRechazo || entregaAnterior.motivo_rechazo }}</p>
+          <p class="alerta-instruccion">Por favor, corrige los detalles solicitados y vuelve a enviar tu trabajo.</p>
+        </div>
+
+        <div class="form-group">
+          <label>Mensaje para el cliente:</label>
+          <textarea class="form-control" rows="3"
+                    [(ngModel)]="nuevaEntrega.descripcion"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Enlace de Archivos (Drive, GitHub, etc.):</label>
+          <input type="text" class="form-control" placeholder="https://..." 
+                 [(ngModel)]="nuevaEntrega.archivosUrl">
+        </div>
+
+        <div class="botones-accion">
+          <button class="btn-registro btn-enviar" (click)="enviarTrabajo()">Enviar al Cliente</button>
+          <button class="btn-registro btn-cancelar" (click)="cancelarEntrega()"> Cancelar </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="admin-container">
+  <h2>Gestión de Habilidades</h2>
+  <p>Crea y administra el catálogo de habilidades específicas asociadas a las categorías.</p>
+
+  <div class="form-crear">
+    <h3>{{ habilidadEnEdicion ? 'Editar Habilidad' : 'Nueva Habilidad' }}</h3>
+    
+    <div class="input-group">
+      <select class="form-control" *ngIf="!habilidadEnEdicion" [(ngModel)]="nuevaHabilidadCat">
+        <option value="0" disabled selected>Selecciona una Categoría</option>
+        <option *ngFor="let c of categoriasActivas" [value]="c.idCategoria">{{ c.nombre }}</option>
+      </select>
+
+      <input type="text" class="form-control" *ngIf="!habilidadEnEdicion" [(ngModel)]="nuevaHabilidadNombre" placeholder="Habilidad (Ej. Angular)">
+      <input type="text" class="form-control" *ngIf="!habilidadEnEdicion" [(ngModel)]="nuevaHabilidadDesc" placeholder="Descripción breve">
+             
+      <select class="form-control" *ngIf="habilidadEnEdicion" [(ngModel)]="habilidadEnEdicion.idCategoria">
+        <option *ngFor="let c of categoriasActivas" [value]="c.idCategoria">{{ c.nombre }}</option>
+      </select>
+
+      <input type="text" class="form-control" *ngIf="habilidadEnEdicion" [(ngModel)]="habilidadEnEdicion.nombre">
+      <input type="text" class="form-control" *ngIf="habilidadEnEdicion" [(ngModel)]="habilidadEnEdicion.descripcion">
+
+      <button class="btn-action btn-verde" *ngIf="!habilidadEnEdicion" (click)="crearHabilidad()">Guardar</button>
+      <button class="btn-action btn-verde" *ngIf="habilidadEnEdicion" (click)="guardarEdicion()">Actualizar</button>
+      <button class="btn-action btn-rojo" *ngIf="habilidadEnEdicion" (click)="habilidadEnEdicion = null">Cancelar</button>
+    </div>
+  </div>
+
+  <table class="tabla-admin">
+    <thead>
+      <tr>
+        <th>Categoría Padre</th>
+        <th>Nombre Habilidad</th>
+        <th>Descripción</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let hab of habilidades">
+        <td><span class="badge-rol">{{ hab.nombreCategoria }}</span></td>
+        <td><strong>{{ hab.nombre }}</strong></td>
+        <td>{{ hab.descripcion }}</td>
+        <td>
+          <span class="badge-estado" [ngClass]="{'activo': hab.estado == 1, 'inactivo': hab.estado == 0}">
+            {{ hab.estado == 1 ? 'ACTIVA' : 'INACTIVA' }}
+          </span>
+        </td>
+        <td>
+          <button class="btn-action btn-editar" (click)="iniciarEdicion(hab)" [disabled]="hab.estado == 0">Editar</button>
+          <button class="btn-action" [ngClass]="{'btn-rojo': hab.estado == 1, 'btn-verde': hab.estado == 0}" (click)="alternarEstado(hab)">
+            {{ hab.estado == 1 ? 'Desactivar' : 'Activar' }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

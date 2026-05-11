@@ -1,0 +1,34 @@
+<div class="billetera-container">
+  <h2>Mi Billetera Virtual</h2>
+  
+  <div class="saldo-card">
+    <p class="saldo-label">Saldo Disponible</p>
+    <h1 class="saldo-monto">Q{{ saldoActual | number:'1.2-2' }}</h1>
+  </div>
+
+  <!-- ESTA SECCIÓN SOLO APARECE SI ES CLIENTE -->
+  <div class="recarga-section" *ngIf="esCliente()">
+    <h3>Recargar Saldo</h3>
+    <p>Agrega fondos para poder contratar freelancers y pagar proyectos.</p>
+    
+    <div class="form-group">
+      <div class="input-group">
+        <span class="moneda">Q</span>
+        <input type="number" class="form-control input-monto" placeholder="Ej. 500.00" [(ngModel)]="montoRecarga" min="1">
+      </div>
+    </div>
+
+    <button class="btn-recargar" (click)="realizarRecarga()">Procesar Recarga</button>
+    
+    <div class="alerta" *ngIf="mensaje" [ngClass]="{'alerta-error': mensaje.includes('Error') || mensaje.includes('válido'), 'alerta-exito': mensaje.includes('exitosa')}">
+      {{ mensaje }}
+    </div>
+  </div>
+
+  <!-- MENSAJE PARA FREELANCER -->
+  <div class="info-freelancer" *ngIf="!esCliente()">
+    <p><strong>Nota:</strong> Tu saldo aumenta automáticamente cuando un cliente aprueba tu entrega final.</p>
+    
+  </div>
+  
+</div>

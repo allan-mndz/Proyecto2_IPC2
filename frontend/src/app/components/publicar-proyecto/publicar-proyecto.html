@@ -1,0 +1,45 @@
+<div class="login-container">
+  <h2 class="login-title">Publicar Nuevo Proyecto</h2>
+  
+  <p class="enlace-registro-container">
+    Describe lo que necesitas y encuentra al talento ideal.
+  </p>
+
+  <div *ngIf="mensajeExito" class="alerta alerta-exito">{{ mensajeExito }}</div>
+  <div *ngIf="mensajeError" class="alerta alerta-error">{{ mensajeError }}</div>
+
+  <form (ngSubmit)="onPublicar()">
+    
+    <div class="form-group">
+      <label>Título del Proyecto:</label>
+      <input type="text" [(ngModel)]="nuevoProyecto.titulo" name="titulo" class="form-control" placeholder="Ej. Creación de Tienda Online" required>
+    </div>
+
+    <div class="form-group">
+      <label>Categoría:</label>
+      <select [(ngModel)]="nuevoProyecto.idCategoria" name="categoria" class="form-control" required>
+        <option [value]="0" disabled selected>Selecciona una Categoría</option>
+        <option *ngFor="let c of categoriasActivas" [value]="c.idCategoria">{{ c.nombre }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Descripción detallada:</label>
+      <textarea [(ngModel)]="nuevoProyecto.descripcion" name="desc" class="form-control" rows="4" placeholder="Explica exactamente qué necesitas que haga el freelancer..." required></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Presupuesto Máximo (Q):</label>
+        <input type="number" [(ngModel)]="nuevoProyecto.presupuestoMaximo" name="presupuesto" class="form-control" placeholder="Ej. 1500" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Fecha Límite:</label>
+        <input type="date" [(ngModel)]="nuevoProyecto.fechaLimite" name="fecha" class="form-control" required>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-primary">Publicar Proyecto</button>
+  </form>
+</div>

@@ -1,0 +1,60 @@
+<div class="reportes-container">
+  
+  <div class="controles-reporte">
+    <div class="form-group">
+      <label>Selecciona el Reporte:</label>
+      <select class="form-control" [(ngModel)]="tipoReporteSeleccionado" (change)="cargarReporte()">
+        <option value="recargas">1. Historial de Recargas (General)</option>
+        <option value="proyectos">2. Historial de Proyectos (Por Rango de Fechas)</option>
+        <option value="gastos">3. Gasto por Categoría (Por Rango de Fechas)</option>
+      </select>
+    </div>
+
+    <div class="fechas-group" *ngIf="tipoReporteSeleccionado !== 'recargas'">
+      <div class="form-group">
+        <label>Fecha Inicio:</label>
+        <input type="date" class="form-control" [(ngModel)]="fechaInicio" (change)="cargarReporte()">
+      </div>
+      <div class="form-group">
+        <label>Fecha Fin:</label>
+        <input type="date" class="form-control" [(ngModel)]="fechaFin" (change)="cargarReporte()">
+      </div>
+    </div>
+
+    <button class="btn-pdf" (click)="exportarPDF()" [disabled]="datosReporte.length === 0">Descargar PDF</button>
+  </div>
+
+  <!-- MENSAJE VACÍO -->
+  <div *ngIf="datosReporte.length === 0" class="alerta-vacia">
+    <span *ngIf="tipoReporteSeleccionado === 'recargas'">Aún no has realizado recargas.</span>
+    <span *ngIf="tipoReporteSeleccionado !== 'recargas' && (!fechaInicio || !fechaFin)">Selecciona un rango de fechas para ver los datos.</span>
+    <span *ngIf="tipoReporteSeleccionado !== 'recargas' && fechaInicio && fechaFin">No se encontraron registros en estas fechas.</span>
+  </div>
+
+  <!-- TABLA 1: RECARGAS -->
+  <table class="tabla-reporte" *ngIf="datosReporte.length > 0 && tipoReporteSeleccionado === 'recargas'">
+    <thead><tr><th>No.</th><th>Fecha y Hora</th><th>Monto</th></tr></thead>
+    <tbody><tr *ngFor="let r of datosReporte; let i = index"><td>{{ i + 1 }}</td><td>{{ r.fecha_hora }}</td><td class="monto">Q{{ r.monto | number:'1.2-2' }}</td></tr></tbody>
+  </table>
+
+  <!-- TABLA 2: PROYECTOS -->
+  <table class="tabla-reporte" *ngIf="datosReporte.length > 0 && tipoReporteSeleccionado === 'proyectos'">
+    <thead><tr><th>No.</th><th>Proyecto</th><th>Estado</th><th>Freelancer</th><th>Monto</th></tr></thead>
+    <tbody>
+      <tr *ngFor="let p of datosReporte; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ p.titulo }}</td> <!-- AQUÍ ESTÁ EL CAMBIO -->
+        <td><span class="badge">{{ p.estado }}</span></td>
+        <td>{{ p.freelancer }}</td>
+        <td class="monto">Q{{ p.monto | number:'1.2-2' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TABLA 3: GASTOS POR CATEGORÍA -->
+  <table class="tabla-reporte" *ngIf="datosReporte.length > 0 && tipoReporteSeleccionado === 'gastos'">
+    <thead><tr><th>No.</th><th>Categoría</th><th>Total Gastado</th></tr></thead>
+    <tbody><tr *ngFor="let g of datosReporte; let i = index"><td>{{ i + 1 }}</td><td>{{ g.categoria }}</td><td class="monto">Q{{ g.total | number:'1.2-2' }}</td></tr></tbody>
+  </table>
+
+</div>

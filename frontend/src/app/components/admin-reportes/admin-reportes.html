@@ -1,0 +1,19 @@
+<div class="reportes-container">
+  <h2>Panel de Reportes Generales</h2>
+  
+  <div class="controles">
+    <select [(ngModel)]="tipoSeleccionado" class="form-control">
+      <option value="comisiones">1. Historial de Comisiones</option>
+      <option value="freelancers">2. Top 5 Freelancers</option>
+      <option value="categorias">3. Top 5 Categorías</option>
+      <option value="ingresos">4. Ingresos Totales de Plataforma</option>
+    </select>
+
+    <div class="fechas" *ngIf="tipoSeleccionado !== 'comisiones'">
+      <input type="date" [(ngModel)]="fechaInicio" class="form-control">
+      <input type="date" [(ngModel)]="fechaFin" class="form-control">
+    </div>
+
+    <button (click)='generarReporte()' class="btn-pdf">Generar y Descargar PDF</button>
+  </div>
+</div>

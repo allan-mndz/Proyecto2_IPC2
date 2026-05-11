@@ -1,0 +1,114 @@
+.admin-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  padding: 30px;
+  border: 1px solid black; 
+}
+
+.admin-container h2 {
+  color: black;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.admin-container p {
+  color: gray;
+  margin-bottom: 25px;
+}
+
+.panel-comision {
+  text-align: center;
+  background-color: lightgray;
+  border: 1px solid black;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.titulo-comision {
+  color: blue;
+  margin-top: 0;
+}
+
+.monto-comision {
+  font-size: 48px;
+  color: green;
+  margin: 10px 0;
+}
+
+.fecha-comision {
+  font-size: 14px;
+  color: gray;
+}
+
+.controles-comision {
+  margin-top: 20px;
+}
+
+.controles-comision label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.input-comision {
+  width: 150px;
+  display: inline-block;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.titulo-historial {
+  margin-top: 20px;
+  color: black;
+}
+
+.form-control {
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid gray;
+  font-size: 14px;
+}
+
+.tabla-admin {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.tabla-admin th, .tabla-admin td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid gray;
+}
+
+.tabla-admin th {
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+}
+
+.badge-estado {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.activo {
+  color: green; 
+}
+
+.inactivo {
+  color: red; 
+}
+
+.btn-action {
+  padding: 10px 15px;
+  border: 1px solid black;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-verde {
+  background-color: green;
+}

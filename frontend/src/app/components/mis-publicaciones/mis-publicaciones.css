@@ -1,0 +1,188 @@
+.login-container {
+  max-width: 600px;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+  border: 1px solid black;
+  padding: 20px;
+  background-color: white;
+}
+
+.login-container h2 {
+  text-align: center;
+  color: black;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.login-container p {
+  text-align: center;
+  color: gray;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid gray;
+  font-size: 14px;
+}
+
+.alerta {
+  padding: 10px;
+  border: 1px solid black;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+  background-color: lightgray;
+}
+
+.alerta-vacia {
+  color: black;
+  font-style: italic;
+  text-align: center;
+  padding: 15px;
+  background-color: lightgray;
+  border: 1px solid gray;
+}
+
+.lista-proyectos {
+  margin-top: 25px;
+}
+
+.proyecto-card {
+  background-color: white;
+  border: 1px solid black;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.card-header {
+  overflow: auto;
+  border-bottom: 1px solid gray;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.proyecto-categoria {
+  color: gray;
+  font-size: 14px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.proyecto-titulo {
+  margin: 0;
+  color: black;
+  font-size: 18px;
+  float: left;
+}
+
+.estado-badge {
+  padding: 3px 8px;
+  font-weight: bold;
+  border: 1px solid black;
+  float: right;
+}
+
+.abierto { background-color: lightgreen; color: black; }
+.cerrado { background-color: lightcoral; color: black; }
+
+.proyecto-desc {
+  color: black;
+  margin-bottom: 15px;
+}
+
+.proyecto-footer {
+  background-color: lightgray;
+  border: 1px solid gray;
+  padding: 10px;
+  margin-bottom: 15px;
+  overflow: auto;
+}
+
+.proyecto-presupuesto {
+  font-weight: bold;
+  color: blue;
+  float: left;
+}
+
+.proyecto-footer span:nth-child(2) {
+  font-weight: bold;
+  color: red;
+  float: right;
+}
+
+.btn, .btn-registro {
+  width: 100%;
+  padding: 10px;
+  color: white;
+  border: 1px solid black;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.btn-ver-postulantes { background-color: blue; }
+.btn-aceptar { background-color: green; }
+.btn-revisar { background-color: blue; }
+.btn-rechazar { background-color: red; }
+.btn-cancelar { background-color: gray; }
+.btn-cerrar { background-color: red; width: auto; float: right; margin-top: 0; padding: 5px 10px; }
+.btn-calificar { background-color: orange; color: black; }
+
+.panel-propuestas {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: lightgray;
+  border: 1px solid black;
+}
+
+.panel-propuestas-header {
+  overflow: auto;
+  border-bottom: 1px solid gray;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.panel-propuestas-header h4 {
+  margin: 0;
+  color: blue;
+  float: left;
+}
+
+.tarjeta-propuesta {
+  background: white;
+  border: 1px solid gray;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.propuesta-freelancer-info {
+  border-bottom: 1px solid gray;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  overflow: auto;
+}
+
+.propuesta-freelancer-info strong { float: left; }
+.estrellas { float: right; color: orange; font-weight: bold; }
+
+.carta-presentacion {
+  font-style: italic;
+  background-color: lightgray;
+  padding: 10px;
+  border-left: 5px solid blue;
+  margin: 10px 0;
+}

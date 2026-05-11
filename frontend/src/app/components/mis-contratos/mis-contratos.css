@@ -1,0 +1,205 @@
+.registro-container {
+  max-width: 600px;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+  border: 1px solid black;
+  padding: 20px;
+  background-color: white;
+}
+
+.container-ancho {
+  max-width: 800px;
+}
+
+.registro-container h2 {
+  text-align: center;
+  color: black;
+}
+
+.registro-container p {
+  text-align: center;
+  color: gray;
+  font-size: 14px;
+}
+
+.registro-form {
+  margin: 0;
+  padding: 0;
+}
+
+.form-row {
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid gray;
+  font-size: 14px;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: blue;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+.alerta {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid black;
+  font-weight: bold;
+  text-align: center;
+}
+
+.alerta-exito {
+  background-color: lightgreen;
+  color: darkgreen;
+}
+
+.alerta-error {
+  background-color: lightcoral;
+  color: darkred;
+}
+
+.alerta-vacia {
+  background-color: lightgray;
+  color: black;
+  font-style: italic;
+  padding: 20px;
+}
+
+.alerta-rechazo {
+  background-color: lightcoral;
+  color: darkred;
+  border: 1px solid red;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.alerta-titulo {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.alerta-instruccion {
+  font-style: italic;
+}
+
+.lista-proyectos {
+  margin-top: 15px;
+}
+
+.proyecto-card {
+  background-color: white;
+  border: 1px solid black;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.card-header {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.proyecto-titulo {
+  margin: 0;
+  color: black;
+  font-size: 18px;
+}
+
+.estado-badge {
+  background-color: green;
+  color: white;
+  padding: 3px 8px;
+  font-weight: bold;
+}
+
+.proyecto-desc {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.proyecto-footer {
+  background-color: lightgray;
+  padding: 10px;
+  overflow: auto;
+}
+
+.proyecto-presupuesto {
+  font-weight: bold;
+  color: blue;
+  float: left;
+}
+
+.fecha-limite {
+  font-weight: bold;
+  color: red;
+  float: right;
+}
+
+.formulario-entrega {
+  margin-top: 20px;
+  padding-top: 15px;
+}
+
+.formulario-titulo {
+  color: blue;
+  margin-bottom: 15px;
+}
+
+.botones-accion {
+  margin-top: 15px;
+}
+
+.btn-margin-top {
+  margin-top: 15px;
+}
+
+.btn-enviar {
+  background-color: blue;
+  color: white;
+  padding: 8px 15px;
+  border: 1px solid darkblue;
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  background-color: gray;
+  color: white;
+  padding: 8px 15px;
+  border: 1px solid darkgray;
+  cursor: pointer;
+}
+
+.btn-registro {
+  width: 100%;
+  padding: 10px;
+  background-color: green;
+  color: white;
+  border: 1px solid darkgreen;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+}
