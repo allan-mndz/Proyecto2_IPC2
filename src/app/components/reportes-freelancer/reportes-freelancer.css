@@ -1,0 +1,120 @@
+.reportes-container {
+  max-width: 800px;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  padding: 30px;
+  border: 1px solid black;
+}
+
+.controles-reporte {
+  background-color: lightgray;
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 1px solid gray;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: black;
+  font-size: 14px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid gray;
+  box-sizing: border-box;
+  font-size: 14px;
+  background-color: white;
+}
+
+.fechas-group {
+  margin-top: 10px;
+  border-top: 1px dashed gray;
+  padding-top: 15px;
+}
+
+.btn-pdf {
+  width: 100%; 
+  background-color: red;
+  color: white;
+  border: 1px solid darkred;
+  padding: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-pdf:disabled {
+  background-color: gray;
+  border-color: darkgray;
+  cursor: not-allowed;
+}
+
+.tabla-reporte {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.tabla-reporte th, .tabla-reporte td {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: left;
+}
+
+.tabla-reporte th {
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+}
+
+.monto {
+  font-weight: bold;
+  color: green; 
+}
+
+.badge {
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.alerta-vacia {
+  background-color: white;
+  color: red;
+  border: 1px solid red;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.saldo-box {
+  background-color: #f8f9fa;
+  border: 2px solid #28a745;
+  padding: 15px;
+  text-align: center;
+  margin-bottom: 25px;
+  border-radius: 8px;
+}
+
+.saldo-box h3 {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.monto-grande {
+  margin: 10px 0 0 0;
+  color: #28a745;
+  font-size: 32px;
+  font-weight: bold;
+}

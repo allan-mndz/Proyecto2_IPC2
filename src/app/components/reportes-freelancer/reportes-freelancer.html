@@ -1,0 +1,75 @@
+<div class="reportes-container">
+
+  <div class="saldo-box">
+    <h3>Mi Saldo Actual</h3>
+    <h2 class="monto-grande">Q{{ saldoActual | number:'1.2-2' }}</h2>
+  </div>
+  
+  <div class="controles-reporte">
+    <div class="form-group">
+      <label>Selecciona el Reporte:</label>
+      <select class="form-control" [(ngModel)]="tipoReporteSeleccionado" (change)="cargarReporte()">
+        <option value="contratos">1. Historial de Contratos Completados (Por Fechas)</option>
+        <option value="top_categorias">2. Top 5 Categorías en las que más he trabajado</option>
+        <option value="propuestas">3. Propuestas Enviadas (Por Fechas)</option>
+      </select>
+    </div>
+
+    <div class="fechas-group" *ngIf="tipoReporteSeleccionado === 'contratos' || tipoReporteSeleccionado === 'propuestas'">
+      <div class="form-group">
+        <label>Fecha Inicio:</label>
+        <input type="date" class="form-control" [(ngModel)]="fechaInicio" (change)="cargarReporte()">
+      </div>
+      <div class="form-group">
+        <label>Fecha Fin:</label>
+        <input type="date" class="form-control" [(ngModel)]="fechaFin" (change)="cargarReporte()">
+      </div>
+    </div>
+
+    <button class="btn-pdf" (click)="exportarPDF()" [disabled]="datosReporte.length === 0">Descargar PDF</button>
+  </div>
+
+  <div *ngIf="datosReporte.length === 0" class="alerta-vacia">
+    <span *ngIf="tipoReporteSeleccionado === 'top_categorias'">Aún no has completado contratos.</span>
+    <span *ngIf="(tipoReporteSeleccionado === 'contratos' || tipoReporteSeleccionado === 'propuestas') && (!fechaInicio || !fechaFin)">Selecciona un rango de fechas para ver los datos.</span>
+    <span *ngIf="(tipoReporteSeleccionado === 'contratos' || tipoReporteSeleccionado === 'propuestas') && fechaInicio && fechaFin">No se encontraron registros en estas fechas.</span>
+  </div>
+
+  <table class="tabla-reporte" *ngIf="datosReporte.length > 0 && tipoReporteSeleccionado === 'contratos'">
+    <thead><tr><th>No.</th><th>Cliente</th><th>Proyecto</th><th>Monto Recibido</th><th>Calificación</th></tr></thead>
+    <tbody>
+      <tr *ngFor="let r of datosReporte; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ r.cliente }}</td>
+        <td>{{ r.proyecto }}</td>
+        <td class="monto">Q{{ r.monto_recibido | number:'1.2-2' }}</td>
+        <td>{{ r.calificacion }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="tabla-reporte" *ngIf="datosReporte.length > 0 && tipoReporteSeleccionado === 'top_categorias'">
+    <thead><tr><th>No.</th><th>Categoría</th><th>Contratos</th><th>Ingresos</th></tr></thead>
+    <tbody>
+      <tr *ngFor="let c of datosReporte; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ c.categoria }}</td>
+        <td>{{ c.cantidad_contratos }}</td>
+        <td class="monto">Q{{ c.total_ingresos | number:'1.2-2' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="tabla-reporte" *ngIf="datosReporte.length > 0 && tipoReporteSeleccionado === 'propuestas'">
+    <thead><tr><th>No.</th><th>Proyecto</th><th>Monto Ofertado</th><th>Estado</th></tr></thead>
+    <tbody>
+      <tr *ngFor="let p of datosReporte; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ p.proyecto }}</td>
+        <td class="monto">Q{{ p.monto_ofertado | number:'1.2-2' }}</td>
+        <td><span class="badge">{{ p.estado }}</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

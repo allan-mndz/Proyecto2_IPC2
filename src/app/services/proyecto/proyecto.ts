@@ -131,4 +131,18 @@ export class Proyecto {
   guardarPerfil(datos: any): Observable<any> {
     return this.http.post('http://localhost:8080/api/perfil/completar', datos);
   }
+
+  obtenerSaldoFreelancer(idFreelancer: number): Observable<any> {
+    return this.http.get(`http://localhost:8080/api/reportes-freelancer?tipo=saldo&id=${idFreelancer}`);
+  }
+
+  obtenerReporteFreelancer(tipo: string, idFreelancer: number, fechaInicio: string, fechaFin: string): Observable<any> {
+    let url = `http://localhost:8080/api/reportes-freelancer?tipo=${tipo}&id=${idFreelancer}`;
+    
+    if (fechaInicio && fechaFin) {
+      url += `&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
+    }
+    
+    return this.http.get(url);
+  }
 }

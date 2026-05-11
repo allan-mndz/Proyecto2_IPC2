@@ -15,6 +15,7 @@ import { AdminHabilidadesComponent } from './components/admin-habilidades/admin-
 import { AdminComisionComponent } from './components/admin-comision/admin-comision';
 import { AdminReportesComponent } from './components/admin-reportes/admin-reportes';
 import { CompletarPerfilComponent } from './components/completar-perfil/completar-perfil';
+import { ReportesFreelancer } from './components/reportes-freelancer/reportes-freelancer'; 
 
 export const routes: Routes = [
 
@@ -49,6 +50,8 @@ export const routes: Routes = [
     { path: 'admin-reportes', component: AdminReportesComponent },
 
     { path: 'completar-perfil', component: CompletarPerfilComponent }, 
+
+    { path: 'reportes-freelancer', component: ReportesFreelancer },
 
     {path: '**', redirectTo: '/login'},
     
